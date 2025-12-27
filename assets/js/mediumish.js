@@ -30,6 +30,15 @@ jQuery(document).ready(function($){
         }
     });
 
+     // floating contact button
+    $(document).scroll(function () {
+        var y = $(this).scrollTop();
+        if (y > 280) {
+            $('.whatsapp-sticky').fadeIn();
+        } else {
+            $('.whatsapp-sticky').fadeOut();
+        }
+    });
 
     // Smooth on external page
     $(function() {
@@ -72,6 +81,7 @@ jQuery(document).ready(function($){
         didScroll = true;
     });
 
+    /* HIDE HEADER ON SCROLL DOWN
     setInterval(function() {
         if (didScroll) {
             hasScrolled();
@@ -103,8 +113,9 @@ jQuery(document).ready(function($){
 
         lastScrollTop = st;
     }
-        
-    $('.site-content').css('margin-top', $('header').outerHeight() + 'px');  
+    ================================================== */
+    
+    $('.site-content').css('margin-top', $('nav').outerHeight() + 'px');  
     
     // spoilers
      $(document).on('click', '.spoiler', function() {

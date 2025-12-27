@@ -1,7 +1,7 @@
 ---
 layout: default
 disqus: false
-archive: false
+archive: true
 post_class: post-template
 ---
 
@@ -20,8 +20,7 @@ post_class: post-template
 
         <div class="col-md-9 flex-first flex-md-unordered">
             <div class="mainheading">
-
-                <!-- Author Box -->
+                <!-- Author Box 
                 {% if page.author %}
                 <div class="row post-top-meta">
                     <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
@@ -37,9 +36,26 @@ post_class: post-template
                     </div>
                 </div>
                 {% endif %}
+                ================================================== -->
 
                 <!-- Post Title -->
                 <h1 class="posttitle">{{ page.title }}</h1>
+
+                <!-- Post Date -->
+                <p>
+                    
+                    {% if page.last_modified_at %}
+                    (Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
+                    {% endif %} 
+
+                    {% assign sortedCategories = page.categories | sort %}
+                    {% for category in sortedCategories %}
+                    <span><a class="smoothscroll" href="{{site.baseurl}}/kategori#{{ category | replace: " ","-" }}">{{ site.data.categories[category].name }}</a></span>
+                    
+                    {% endfor %}
+
+                    <span class="post-date"><time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">• {{ page.date | date_to_string }}</time></span>
+                </p>
 
             </div>
 
@@ -77,22 +93,8 @@ post_class: post-template
                 {{content}}
             </div>
 
-            <!-- Rating -->
-            {% if page.rating %}
-            <div class="rating mb-4 d-flex align-items-center">
-                <strong class="mr-1">Rating:</strong> {% include star_rating.html %}
-            </div>
-            {% endif %}
 
-            <!-- Post Date -->
-            <p>
-            <small>
-                <span class="post-date"><time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time></span>           
-                {% if page.last_modified_at %}
-                (Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
-                {% endif %}
-                </small>
-            </p>
+
 
             <!-- Post Categories -->
             <div class="after-post-cats">
@@ -100,14 +102,14 @@ post_class: post-template
                     {% assign sortedCategories = page.categories | sort %}
                     {% for category in sortedCategories %}
                     <li>
-                        <a class="smoothscroll" href="{{site.baseurl}}/categories#{{ category | replace: " ","-" }}">{{ category }}</a>
+                        <a class="smoothscroll" href="{{site.baseurl}}/kategori#{{ category | replace: " ","-" }}">{{ category }}</a>
                     </li>
                     {% endfor %}
                 </ul>
             </div>
             <!-- End Categories -->
 
-            <!-- Post Tags -->
+            <!-- Post Tags 
             <div class="after-post-tags">
                 <ul class="tags">
                     {% assign sortedTags = page.tags | sort %}
@@ -118,7 +120,7 @@ post_class: post-template
                     {% endfor %}
                 </ul>
             </div>
-            <!-- End Tags -->
+            ================================================== -->
 
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
@@ -154,28 +156,3 @@ post_class: post-template
 <!--End Comments
 ================================================== -->
 
-<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
-https://search.google.com/structured-data/testing-tool/u/0/
-================================================== -->
-{% if page.rating %}
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org/",
-  "@type": "Review",
-  "itemReviewed": {
-    "@type": "Thing",
-    "name": "{{ page.title }}"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "{{ author.display_name }}"
-  },
-  "datePublished": "{{ page.date | date:"%Y-%m-%d" }}",
-  "reviewRating": {
-    "@type": "Rating",
-    "ratingValue": "{{ page.rating }}",
-    "bestRating": "5"
-  }
-}
-</script>
-{% endif %}

@@ -5,8 +5,6 @@ title: Home
 
 {% if page.url == "/" %}
 
-{% include whatsapp-sticky.html %}
-
 <!-- Site Title
 ================================================== -->
 <div class="mainheading">
@@ -15,8 +13,8 @@ title: Home
         {{ site.description }}
     </p>
  
-    <div class="contact-whatsapp">
-        <a class="btn whatsapp-button" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
+    <div class="contact">
+        <a class="whatsapp-button" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
             <i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i> Hubungi Kami via WhatsApp
         </a>
     </div>

@@ -2,7 +2,6 @@
 layout: page
 title: Tentang Kami
 permalink: /tentang-kami
-comments: false
 ---
 
 <div class="row justify-content-between">

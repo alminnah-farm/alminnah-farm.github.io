@@ -1,0 +1,93 @@
+---
+layout: default
+post_class: post-template
+---
+
+<!-- Begin Katalog Article
+================================================== -->
+<div class="row">
+
+        <!-- Left Column: Sticky Gallery -->
+        <div class="col-md-5 katalog-gallery-col">
+            <div class="katalog-gallery sticky-gallery">
+
+                {% assign folder_path = "/assets/images/posts/catalog/" | append: page.catalog_id | append: "/" %}
+                {% assign catalog_images = site.static_files | where_exp: "file", "file.path contains folder_path" %}
+
+                {% if catalog_images.size > 0 %}
+                    <!-- Main Image -->
+                    <div class="katalog-main-image mb-2">
+                        <img id="katalog-main-img"
+                             src="{{ catalog_images[0].path }}"
+                             alt="{{ page.title }}"
+                             class="img-fluid rounded">
+                    </div>
+
+                    <!-- Thumbnails -->
+                    {% if catalog_images.size > 1 %}
+                    <div class="katalog-thumbnails d-flex flex-wrap gap-2">
+                        {% for image in catalog_images %}
+                        <img src="{{ image.path }}"
+                             alt="{{ page.title }} {{ forloop.index }}"
+                             class="katalog-thumb rounded {% if forloop.first %}active{% endif %}"
+                             onclick="document.getElementById('katalog-main-img').src=this.src">
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                {% else %}
+                    {% if page.image %}
+                    <img src="{% if page.image contains '://' %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}"
+                         alt="{{ page.title }}" class="img-fluid rounded">
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+
+        <!-- Right Column: Content -->
+        <div class="col-md-7">
+            <div class="mainheading">
+                <h1 class="posttitle">{{ page.title }}</h1>
+                <p>
+                    {% assign sortedCategories = page.categories | sort %}
+                    {% for category in sortedCategories %}
+                    <span><a class="smoothscroll" href="{{ site.baseurl }}/kategori#{{ category | replace: ' ','-' }}">{{ site.data.categories[category].name }}</a></span>
+                    {% endfor %}
+                    <span class="post-date"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">• {{ page.date | date_to_string }}</time></span>
+                </p>
+            </div>
+
+            <div class="article-post">
+                {{ content }}
+            </div>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    {% assign sortedCategories = page.categories | sort %}
+                    {% for category in sortedCategories %}
+                    <li>
+                        <a class="smoothscroll" href="{{ site.baseurl }}/kategori#{{ category | replace: ' ','-' }}">{{ category }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                {% if page.previous.url %}
+                <a class="prev d-block col-md-6" href="{{ site.baseurl }}/{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+                {% endif %}
+                {% if page.next.url %}
+                <a class="next d-block col-md-6 text-lg-right" href="{{ site.baseurl }}/{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+        <!-- End Right Column -->
+
+</div>
+<!-- End Katalog Article
+================================================== -->

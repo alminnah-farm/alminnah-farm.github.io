@@ -10,9 +10,14 @@
 </style>
 
 
-<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
-    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Cari di situs Al-Minnah Farm.."/>
-</form>
+<li class="nav-item pl-2">
+    <form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+        <div style="position:relative;">
+            <i class="fas fa-search" style="position:absolute; left:24px; top:50%; transform:translateY(-50%); color:#aaa; pointer-events:none;"></i>
+            <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Cari di situs Al-Minnah Farm.." style="padding-left:48px; padding-top:6px; padding-bottom:6px;"/>
+        </div>
+    </form>
+</li>
 
 <div id="lunrsearchresults">
     <ul></ul>

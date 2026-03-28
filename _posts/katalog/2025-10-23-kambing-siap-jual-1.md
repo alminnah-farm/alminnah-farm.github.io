@@ -2,13 +2,11 @@
 layout: post
 title:  "[Jual] Kambing Jawarandu"
 categories: [katalog]
-author: john
 tags: [red, yellow]
 image: assets/images/posts/jual-goat-1.jpg
 description: "My review of Inception movie. Acting, plot and something else in this short description."
 featured: true
 hidden: true
-comments: false
 ---
 
 Review products, books, movies, restaurant and anything you like on your Jekyll blog with Mediumish!

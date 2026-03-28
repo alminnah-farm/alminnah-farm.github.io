@@ -21,13 +21,17 @@
                     <a class="nav-link" href="{{ site.baseurl }}/tentang-kami">Tentang Kami</a>
                 </li>
 
-                {% if page.url == "/" %}
-                <li class="nav-item active">
-                {% else %}
-                <li class="nav-item">
-                {% endif %}
-
-                <a class="nav-link" href="{{ site.baseurl }}/kategori">Blog</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="tulisanDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tulisan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="tulisanDropdown">
+                        <a class="dropdown-item" href="{{ site.baseurl }}/kategori">Semua Tulisan</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ site.baseurl }}/kategori#katalog">Katalog</a>
+                        <a class="dropdown-item" href="{{ site.baseurl }}/kategori#pojok-ilmu">Pojok Ilmu</a>
+                        <a class="dropdown-item" href="{{ site.baseurl }}/kategori#cerita">Cerita</a>
+                    </div>
                 </li>
            
                 {% include search-lunr.html %}

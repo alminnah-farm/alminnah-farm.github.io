@@ -1,5 +1,5 @@
 ---
 layout: categories
-title: Kategori Konten
+title: Semua Tulisan
 permalink: /kategori
 ---

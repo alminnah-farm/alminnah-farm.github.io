@@ -1,5 +1,8 @@
-berbagi-ilmu:
-  name: "Berbagi Ilmu"
+katalog:
+  name: "Katalog"
 
-jual-kambing:
-  name: "Jual Kambing"
+pojok-ilmu:
+  name: "Pojok Ilmu"
+
+cerita:
+  name: "Cerita"

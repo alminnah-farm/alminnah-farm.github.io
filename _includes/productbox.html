@@ -1,13 +1,13 @@
 <!-- begin static feature -->
 <div class="col-md-6 mb-4">
-    <div class="listfeaturedtag h-100">
+    <div class="list-featured-tag h-100">
         <div class="row h-100">
             <div class="col-12 col-md-12 col-lg-5 pr-lg-0">
                 <div class="h-100">
-                    <div class="wrapthumbnail">
+                    <div class="wrap-thumbnail">
                         <a href="{{ site.baseurl }}{{ include.url }}">
                             {% if site.lazyimages == "enabled" %}
-                            <img class="featured-box-img-cover lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if include.image contains "://" %}{{ include.image }}{% else %}{{ site.baseurl }}/{{ include.image }}{% endif %}">
+                            <img class="featured-box-img-cover lazy-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if include.image contains "://" %}{{ include.image }}{% else %}{{ site.baseurl }}/{{ include.image }}{% endif %}">
                             {% else %}
                             <img class="featured-box-img-cover" src="{% if include.image contains "://" %}{{ include.image }}{% else %}{{ site.baseurl }}/{{ include.image }}{% endif %}">
                             {% endif %}

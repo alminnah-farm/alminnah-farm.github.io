@@ -16,10 +16,8 @@
         </div>
 
         <div class="featured-card__label">
-            <p class="featured-card__title">{% if post.breed %}{{ post.breed }}{% else %}{{ post.title }}{% endif %}</p>
-            {% if post.colour %}
-            <p class="featured-card__subtitle">{{ post.colour }}</p>
-            {% endif %}
+            {% if post.breed %}<p class="featured-card__title">{{ post.breed }}</p>{% endif %}
+            {% if post.colour %}<p class="featured-card__subtitle">{{ post.colour }}</p>{% endif %}
         </div>
 
     </a>

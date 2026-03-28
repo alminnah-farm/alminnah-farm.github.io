@@ -7,8 +7,8 @@ title: Home
 
 <!-- Site Title
 ================================================== -->
-<div class="mainheading">
-    <h1 class="sitetitle">{{ site.name }}</h1>
+<div class="main-heading">
+    <h1 class="site-title">{{ site.name }}</h1>
     <p class="lead">
         {{ site.description }}
     </p>
@@ -54,7 +54,7 @@ title: Home
 
     </div>
 
-    <div class="row listrecent">
+    <div class="row list-recent">
 
         {% for post in site.posts %}
 
@@ -68,8 +68,8 @@ title: Home
 
 <!-- Pagination
 ================================================== -->
-<div class="bottompagination">
-<div class="pointerup"><i class="fa fa-caret-up"></i></div>
+<div class="bottom-pagination">
+<div class="pointer-up"><i class="fa fa-caret-up"></i></div>
 <span class="navigation" role="navigation">
     {% include pagination.html %}
 </span>

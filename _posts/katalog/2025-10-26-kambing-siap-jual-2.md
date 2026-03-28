@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "[Jual] Kambing Jawarandu"
+categories: [katalog]
 author: john
 tags: [red, yellow]
 image: assets/images/posts/jual-goat-2.jpg

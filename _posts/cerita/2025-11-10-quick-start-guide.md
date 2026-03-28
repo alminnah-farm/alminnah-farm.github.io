@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Let's test spoilers"
-categories: [berbagi-ilmu]
+categories: [cerita]
 author: sal
 image: assets/images/12.jpg
 featured: false

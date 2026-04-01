@@ -20,6 +20,18 @@ jQuery(document).ready(function($){
       });
     }
 
+    // mobile nav overlay
+    $('body').append('<div class="nav-overlay"></div>');
+    $('#navbarMediumish').on('show.bs.collapse', function () {
+        $('.nav-overlay').fadeIn(200);
+    });
+    $('#navbarMediumish').on('hide.bs.collapse', function () {
+        $('.nav-overlay').fadeOut(200);
+    });
+    $('.nav-overlay').on('click', function () {
+        $('#navbarMediumish').collapse('hide');
+    });
+
     // alertbar later
     $(document).scroll(function () {
         var y = $(this).scrollTop();
@@ -31,14 +43,18 @@ jQuery(document).ready(function($){
     });
 
      // floating contact button
-    $(document).scroll(function () {
-        var y = $(this).scrollTop();
-        if (y > 280) {
+    function updateWhatsappVisibility() {
+        var y = $(document).scrollTop();
+        var pageHeight = $(document).height();
+        var windowHeight = $(window).height();
+        if (y > 280 || pageHeight <= windowHeight + 280) {
             $('.whatsapp-sticky').fadeIn();
         } else {
             $('.whatsapp-sticky').fadeOut();
         }
-    });
+    }
+    $(document).scroll(updateWhatsappVisibility);
+    updateWhatsappVisibility();
 
     // Smooth on external page
     $(function() {
@@ -117,6 +133,13 @@ jQuery(document).ready(function($){
     
     $('.site-content').css('margin-top', $('nav').outerHeight() + 'px');  
     
+    // random thumbnail heights for post cards
+    var thumbHeights = [160, 200, 240, 280, 320];
+    $('.list-recent .max-thumb, .recent-posts .max-thumb').each(function() {
+        var h = thumbHeights[Math.floor(Math.random() * thumbHeights.length)];
+        $(this).css('height', h + 'px');
+    });
+
     // spoilers
      $(document).on('click', '.spoiler', function() {
         $(this).removeClass('spoiler');

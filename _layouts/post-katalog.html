@@ -14,23 +14,46 @@ post_class: post-template
                 {% assign folder_path = "/assets/images/posts/catalog/" | append: page.catalog_id | append: "/" %}
                 {% assign catalog_images = site.static_files | where_exp: "file", "file.path contains folder_path" %}
 
-                {% if catalog_images.size > 0 %}
-                    <!-- Main Image -->
+                {% assign video_exts = "mp4,mov,webm" | split: "," %}
+                {% assign catalog_media = catalog_images %}
+
+                {% if catalog_media.size > 0 %}
+                    {% assign first_file = catalog_media[0] %}
+                    {% assign first_ext = first_file.extname | downcase | remove: "." %}
+                    {% assign first_is_video = video_exts | include: first_ext %}
+
+                    <!-- Main Display -->
                     <div class="katalog-main-image mb-2">
                         <img id="katalog-main-img"
-                             src="{{ catalog_images[0].path }}"
+                             src="{% unless first_is_video %}{{ first_file.path }}{% endunless %}"
                              alt="{{ page.title }}"
-                             class="img-fluid rounded">
+                             class="img-fluid{% if first_is_video %} d-none{% endif %}">
+                        <video id="katalog-main-video"
+                               src="{% if first_is_video %}{{ first_file.path }}{% endif %}"
+                               class="img-fluid{% unless first_is_video %} d-none{% endunless %}"
+                               controls playsinline></video>
                     </div>
 
                     <!-- Thumbnails -->
-                    {% if catalog_images.size > 1 %}
+                    {% if catalog_media.size > 1 %}
                     <div class="katalog-thumbnails d-flex flex-wrap gap-2">
-                        {% for image in catalog_images %}
-                        <img src="{{ image.path }}"
+                        {% for file in catalog_media %}
+                        {% assign ext = file.extname | downcase | remove: "." %}
+                        {% assign is_video = video_exts | include: ext %}
+                        {% if is_video %}
+                        <div class="katalog-thumb katalog-thumb--video {% if forloop.first %}active{% endif %}"
+                             data-src="{{ file.path }}"
+                             data-type="video"
+                             onclick="selectKatalogThumb(this)">
+                            <i class="fa fa-play-circle"></i>
+                        </div>
+                        {% else %}
+                        <img src="{{ file.path }}"
                              alt="{{ page.title }} {{ forloop.index }}"
-                             class="katalog-thumb rounded {% if forloop.first %}active{% endif %}"
-                             onclick="document.getElementById('katalog-main-img').src=this.src">
+                             data-type="image"
+                             class="katalog-thumb {% if forloop.first %}active{% endif %}"
+                             onclick="selectKatalogThumb(this)">
+                        {% endif %}
                         {% endfor %}
                     </div>
                     {% endif %}
@@ -38,7 +61,7 @@ post_class: post-template
                 {% else %}
                     {% if page.image %}
                     <img src="{% if page.image contains '://' %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}"
-                         alt="{{ page.title }}" class="img-fluid rounded">
+                         alt="{{ page.title }}" class="img-fluid">
                     {% endif %}
                 {% endif %}
 
@@ -46,7 +69,7 @@ post_class: post-template
         </div>
 
         <!-- Right Column: Content -->
-        <div class="col-md-7">
+        <div class="col-md-7 pl-md-5">
             <div class="main-heading">
                 <h1 class="post-title">{{ page.title }}</h1>
                 <p>
@@ -63,8 +86,8 @@ post_class: post-template
             </div>
 
             <!-- Post Categories -->
-            <div class="after-post-cats">
-                <ul class="tags mb-4">
+            <!-- <div class="after-post-cats">
+                <ul class="categories mb-4">
                     {% assign sortedCategories = page.categories | sort %}
                     {% for category in sortedCategories %}
                     <li>
@@ -72,15 +95,15 @@ post_class: post-template
                     </li>
                     {% endfor %}
                 </ul>
-            </div>
+            </div> -->
 
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
                 {% if page.previous.url %}
-                <a class="prev d-block col-md-6" href="{{ site.baseurl }}/{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+                <a class="prev d-block col-md-6" href="{{ site.baseurl }}{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
                 {% endif %}
                 {% if page.next.url %}
-                <a class="next d-block col-md-6 text-lg-right" href="{{ site.baseurl }}/{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+                <a class="next d-block col-md-6 text-lg-right{% unless page.previous.url %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
                 {% endif %}
                 <div class="clearfix"></div>
             </div>
@@ -91,3 +114,29 @@ post_class: post-template
 </div>
 <!-- End Katalog Article
 ================================================== -->
+
+<script>
+function selectKatalogThumb(el) {
+    var src = el.dataset.src || el.src;
+    var type = el.dataset.type;
+    var mainImg = document.getElementById('katalog-main-img');
+    var mainVideo = document.getElementById('katalog-main-video');
+
+    if (type === 'video') {
+        mainVideo.src = src;
+        mainVideo.classList.remove('d-none');
+        mainImg.classList.add('d-none');
+    } else {
+        mainImg.src = src;
+        mainImg.classList.remove('d-none');
+        mainVideo.pause();
+        mainVideo.classList.add('d-none');
+    }
+
+    document.querySelectorAll('.katalog-thumb').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    el.classList.add('active');
+}
+
+</script>

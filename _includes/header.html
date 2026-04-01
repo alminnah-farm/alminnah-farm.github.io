@@ -12,32 +12,29 @@
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
+        <span class="navbar-close-icon">&times;</span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarMediumish">
         <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ site.baseurl }}/tentang-kami">Tentang Kami</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ site.baseurl }}/kategori#katalog">Katalog</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ site.baseurl }}/kategori#cerita">Cerita</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ site.baseurl }}/kategori#pojok-ilmu">Pojok Ilmu</a>
-                </li>
-           
                 {% include search-lunr.html %}
+
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ site.baseurl }}/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url contains 'tentang-kami' %} active{% endif %}" href="{{ site.baseurl }}/tentang-kami">Tentang Kami</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link{% if page.categories contains 'katalog' or page.url == '/katalog' %} active{% endif %}" href="{{ site.baseurl }}/katalog">Katalog</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link{% if page.categories contains 'cerita' or page.categories contains 'pojok-ilmu' or page.url == '/tulisan' %} active{% endif %}" href="{{ site.baseurl }}/tulisan">Tulisan</a>
+                </li>
             </ul>
         <!-- End Menu -->
     </div>

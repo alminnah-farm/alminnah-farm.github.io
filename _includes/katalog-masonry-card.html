@@ -1,0 +1,35 @@
+<!-- begin katalog masonry card -->
+{% assign folder_path = "/assets/images/posts/catalog/" | append: post.catalog_id | append: "/" %}
+{% assign catalog_images = site.static_files | where_exp: "file", "file.path contains folder_path" %}
+
+<div class="katalog-masonry-item">
+    <a href="{{ site.baseurl }}{{ post.url }}" class="katalog-masonry-card {% unless post.isAvailable %}katalog-masonry-card--sold{% endunless %}">
+
+        <div class="katalog-masonry-card__image-wrap">
+            {% if catalog_images.size > 0 %}
+            <img class="katalog-masonry-card__image"
+                 src="{{ catalog_images[0].path }}"
+                 data-images="{{ catalog_images | map: 'path' | join: '|' }}"
+                 alt="{{ post.title }}">
+            {% elsif post.image %}
+            <img class="katalog-masonry-card__image"
+                 src="{{ site.baseurl }}/{{ post.image }}"
+                 alt="{{ post.title }}">
+            {% endif %}
+
+            {% unless post.isAvailable %}
+            <div class="katalog-masonry-card__sold-overlay">
+                <span class="katalog-masonry-card__sold-stamp stylize">Sudah Terjual</span>
+            </div>
+            {% endunless %}
+        </div>
+
+        {% if post.isAvailable %}
+        <div class="katalog-masonry-card__label">
+            <span class="katalog-masonry-card__title stylize">{{ post.breed | default: post.title }}</span>{% if post.colour %}<span class="katalog-masonry-card__subtitle"> · {{ post.colour }}</span>{% endif %}
+        </div>
+        {% endif %}
+
+    </a>
+</div>
+<!-- end katalog masonry card -->

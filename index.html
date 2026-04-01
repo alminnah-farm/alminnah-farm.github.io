@@ -8,13 +8,13 @@ title: Home
 <!-- Site Title
 ================================================== -->
 <div class="main-heading">
-    <h1 class="site-title">{{ site.name }}</h1>
+    <h1 class="site-title stylize">{{ site.name }}</h1>
     <p class="lead">
         {{ site.description }}
     </p>
  
     <div class="contact">
-        <a class="whatsapp-button" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
+        <a class="whatsapp-button whatsapp-button--outlined" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
             <i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i> Hubungi Kami via WhatsApp
         </a>
     </div>
@@ -24,21 +24,26 @@ title: Home
 ================================================== -->
 <section class="featured-posts">
     <div class="section-title">
-        <h2><span>Featured</span></h2>
+        <h2><span>Katalog Qurban</span></h2>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
 
     {% for post in site.posts %}
 
         {% if post.featured == true %}
 
-            {% include featuredbox.html %}
+            {% include featured-box.html %}
 
         {% endif %}
 
     {% endfor %}
 
     </div>
+
+    <div class="text-center">
+        <a href="{{ site.baseurl }}/katalog" class="font-weight-bold d-block text-center">Semua Katalog &rarr;</a>
+    </div>
+
 </section>
 
 {% endif %}
@@ -47,31 +52,20 @@ title: Home
 <!-- Posts Index
 ================================================== -->
 <section class="recent-posts">
-
     <div class="section-title">
-
         <h2><span>Semua Tulisan</span></h2>
-
     </div>
 
-    <div class="row list-recent">
-
-        {% for post in site.posts %}
-
-        {% include postbox.html %}
-
+    <div class="row list-recent justify-content-center">
+        {% assign tulisan_posts = site.posts | where_exp: "post", "post.categories contains 'cerita' or post.categories contains 'pojok-ilmu'" %}
+        {% for post in tulisan_posts limit: 6 %}
+        {% include post-box.html %}
         {% endfor %}
+    </div>
 
+    <div class="text-center">
+        <a href="{{ site.baseurl }}/tulisan" class="font-weight-bold d-block text-center">Semua Tulisan &rarr;</a>
     </div>
 
 </section>
-
-<!-- Pagination
-================================================== -->
-<div class="bottom-pagination">
-<div class="pointer-up"><i class="fa fa-caret-up"></i></div>
-<span class="navigation" role="navigation">
-    {% include pagination.html %}
-</span>
-</div>
 

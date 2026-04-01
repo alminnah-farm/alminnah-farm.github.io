@@ -22,6 +22,10 @@
 
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
 
+{% if page.tiktok_embed %}
+<script async src="https://www.tiktok.com/embed.js"></script>
+{% endif %}
+
 </head>
 
 {% if jekyll.environment == 'production' %}

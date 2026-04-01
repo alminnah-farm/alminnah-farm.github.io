@@ -1,5 +1,5 @@
 <!-- begin featured post -->
-<div class="col-6 col-md-4 col-lg-2 mb-4">
+<div class="col-6 col-md-4 col-lg-3 mb-4 featured-box-item">
     <a href="{{ site.baseurl }}{{ post.url }}" class="featured-card {% unless post.isAvailable %}featured-card--sold{% endunless %}">
 
         <div class="featured-card__image-wrap">
@@ -10,15 +10,17 @@
 
             {% unless post.isAvailable %}
             <div class="featured-card__sold-overlay">
-                <span class="featured-card__sold-stamp">Sudah Terjual</span>
+                <span class="featured-card__sold-stamp stylize">Sudah Terjual</span>
             </div>
             {% endunless %}
         </div>
 
+        {% if post.isAvailable %}
         <div class="featured-card__label">
-            {% if post.breed %}<p class="featured-card__title">{{ post.breed }}</p>{% endif %}
-            {% if post.colour %}<p class="featured-card__subtitle">{{ post.colour }}</p>{% endif %}
+            <h3 class="featured-card__title stylize">{{ post.breed | default: post.title }}</h3>
+            {% if post.colour %}<h3 class="featured-card__subtitle">{{ post.colour }}</h3>{% endif %}
         </div>
+        {% endif %}
 
     </a>
 </div>

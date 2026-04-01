@@ -15,10 +15,14 @@
             </a>
         </div>
         <div class="card-body">
+            <div class="post-box-meta">
+                <span class="post-box-date">{{ post.date | date: "%d %b %Y" }}</span>
+                <span class="post-box-category">{{ post.categories | first }}</span>
+            </div>
             <h2 class="card-title">
                 <a class="text-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
             </h2>
-            <h4 class="card-text">{{ post.excerpt | strip_html | truncatewords:30 }}</h4>
+            <h4 class="card-text">{{ post.excerpt | strip_html }}</h4>
         </div>
 
 

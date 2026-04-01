@@ -8,7 +8,7 @@ tiktok_embed: true
 <div class="row justify-content-between">
     <div class="col-md-8 pr-5">
 
-        <h4>Dedikasi Sepenuh Hati demi Ibadah Sempurna</h4>
+        <h3>Dedikasi Sepenuh Hati demi Ibadah Sempurna</h3>
 
         <p>Bagi kami, qurban dan aqiqah bukan sekadar tradisi, melainkan momen ibadah penuh makna! Itulah kenapa kami berkomitmen untuk memastikan setiap proses dijalankan dengan standar tertinggi: mulai dari pemeliharaan kambing, penyeleksian kelayakan untuk qurban dan aqiqah, hingga layanan pelanggan yang responsif.</p>
             
@@ -20,7 +20,7 @@ tiktok_embed: true
             {% include product-box.html title="Aqiqah" url="/aqiqah/" image="assets/images/aqiqah.jpg" excerpt="Layanan Aqiqah profesional — paket lengkap untuk pelaksanaan aqiqah keluarga Anda." %}
         </div> {% endcomment %}
 
-        <h4 class="mt-4">Langsung dari Peternakan ke Tanganmu</h4>
+        <h3 class="mt-4">Langsung dari Peternakan ke Tanganmu</h3>
 
         <p>Kami mengelola peternakan ini dengan penuh dedikasi dan didasari oleh ilmu untuk memastikan kesehatan dan kualitas terbaik dari hewan kami untuk kebutuhanmu.</p>
 
@@ -30,7 +30,7 @@ tiktok_embed: true
 
         <mark>Nikmati ketenangan hati dengan proses transparan dan harga yang bersahabat. </mark>
 
-        <h4 class="mt-5">Masih Belum Yakin? Yuk Langsung Konsultasi Gratis Aja!</h4>
+        <h3 class="mt-5">Masih Belum Yakin? Yuk Langsung Konsultasi Gratis Aja!</h3>
         <p>Keamanan dan kepuasan pelanggan adalah prioritas utama kami. Kami selalu siap mendampingi setiap langkahmu untuk mendapatkan kambing berkualitas terbaik.</p>
 
         <div class="contact-whatsapp">
@@ -38,6 +38,15 @@ tiktok_embed: true
                 <i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i>Konsultasi Gratis Sekarang
             </a>
         </div>
+
+        <h3 class="mt-5">Atau Yuk Langsung Ngobrol Aja Di Kandang Kami </h3>
+        <div class="mt-3" style="border-radius: 8px; overflow: hidden;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4!2d106.9614694!3d-6.2814421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d8e7985ef53%3A0x366ba9a27d37b09c!2sAl-Minnah%20Farm%20-%20Peternakan%20Kambing!5e0!3m2!1sid!2sid!4v1"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
 
     </div>
 

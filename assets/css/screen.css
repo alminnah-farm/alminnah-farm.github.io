@@ -110,6 +110,7 @@ pre {
     z-index: 1029;
 }
 
+
 /* Mobile menu styling */
 @media (max-width: 991px) {
     #navbarMediumish .nav-item .nav-link {
@@ -468,6 +469,11 @@ span.post-read-more a:hover {
     font-size: 1.1rem;
     line-height: 1.84;
     color: rgba(0, 0, 0, .8);
+}
+
+mark {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 blockquote {

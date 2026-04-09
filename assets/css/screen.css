@@ -7,6 +7,10 @@ License: https://www.wowthemes.net/freebies-license/
     html { font-size:18px; } /* Increase the font size on higher resolutions */
     .container {max-width:80%;}
 }
+html, body {
+    overflow-x: hidden;
+}
+
 .main-heading {
     padding: 1rem 0rem;
 }
@@ -392,8 +396,13 @@ span.post-read-more a:hover {
     border-radius: 30px;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.09);
-    min-width: 288px;
     /* height: 64px!important; */
+}
+
+@media (min-width: 992px) {
+    .medium-navigation .form-control {
+        min-width: 288px;
+    }
 }
 
 .medium-navigation .form-inline {
@@ -956,6 +965,10 @@ iframe {
     }
 }
 
+@media (max-width: 767px) {
+    .wa-btn-extra { display: none; }
+}
+
 .whatsapp-sticky {
     display: none;
 }
@@ -966,7 +979,9 @@ iframe {
     left: 50%;
     transform: translate(-50%, 0%);
     z-index: 10;
+    max-width: calc(100vw - 48px);
 }
+
 
 /* Katalog Masonry Page */
 .katalog-masonry {
@@ -1047,7 +1062,7 @@ iframe {
 .featured-posts .row > div:nth-child(n+4) { display: none; }
 
 @media (max-width: 767px) {
-    .featured-posts .row > div:nth-child(-n+4) { display: block; }
+    .featured-posts .row > div:nth-child(-n+6) { display: block; }
     .featured-posts .row { margin-left: -6px; margin-right: -6px; }
     .featured-posts .row > div { padding-left: 6px; padding-right: 6px; }
 }
@@ -1061,6 +1076,8 @@ iframe {
     .featured-posts .row > div:nth-child(5) { display: block; }
     .featured-posts .row > div { flex: 0 0 20%; max-width: 20%; }
 }
+
+.featured-box-item { margin-bottom: 0.75rem; }
 
 /* Featured Card (Katalog) */
 .featured-card {
@@ -1192,6 +1209,7 @@ iframe {
 .katalog-thumbnails {
     gap: 8px;
     padding-bottom: 0.5rem;
+    justify-content: center;
 }
 
 .katalog-thumb {
@@ -1232,7 +1250,14 @@ iframe {
 }
 
 .not-found-tagline {
-    font-size: 2.4rem;
+    font-size: 3rem;
+}
+
+.nav-label-short { display: none; }
+
+@media (max-width: 991px) {
+    .nav-label-full { display: none; }
+    .nav-label-short { display: inline; }
 }
 
 @media (max-width: 767px) {

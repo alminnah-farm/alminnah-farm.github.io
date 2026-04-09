@@ -29,14 +29,9 @@ description: "Beli kambing qurban dan aqiqah terpercaya langsung dari peternakan
     </div>
     <div class="row justify-content-center">
 
-    {% for post in site.posts %}
-
-        {% if post.featured == true %}
-
-            {% include featured-box.html %}
-
-        {% endif %}
-
+    {% assign catalog_posts = site.posts | where_exp: "post", "post.categories contains 'katalog' and post.isAvailable == true" %}
+    {% for post in catalog_posts limit: 12 %}
+        {% include featured-box.html %}
     {% endfor %}
 
     </div>
@@ -76,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {% endfor %}
     </div>
 
-    <div class="text-center">
+    <div class="text-center mb-5">
         <a href="{{ site.baseurl }}/tulisan" class="font-weight-bold d-block text-center">Semua Tulisan &rarr;</a>
     </div>
 

@@ -136,12 +136,16 @@ post_class: post-template
             {% endif %}
             {% assign nav_prev_i = nav_index | plus: 1 %}
             {% if nav_prev_i < nav_posts.size %}{% assign nav_prev = nav_posts[nav_prev_i] %}{% endif %}
-            <div class="row PageNavigation d-flex justify-content-between font-weight-bold mt-5">
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold mt-5 mb-5">
                 {% if nav_prev %}
-                <a class="prev d-block col-md-6" href="{{ site.baseurl }}{{ nav_prev.url }}">&laquo; {{ nav_prev.title }}</a>
+                <a class="prev d-block col-6 col-md-6" href="{{ site.baseurl }}{{ nav_prev.url }}">
+                    &laquo; <span class="nav-label-full">{{ nav_prev.title }}</span><span class="nav-label-short">Sebelumnya</span>
+                </a>
                 {% endif %}
                 {% if nav_next %}
-                <a class="next d-block col-md-6 text-lg-right{% unless nav_prev %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ nav_next.url }}">{{ nav_next.title }} &raquo;</a>
+                <a class="next d-block col-6 col-md-6 text-right{% unless nav_prev %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ nav_next.url }}">
+                    <span class="nav-label-full">{{ nav_next.title }}</span><span class="nav-label-short">Selanjutnya</span> &raquo;
+                </a>
                 {% endif %}
                 <div class="clearfix"></div>
             </div>
@@ -154,6 +158,14 @@ post_class: post-template
 ================================================== -->
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var msg = encodeURIComponent('Halo Al-Minnah Farm. Boleh tanya tentang kambing {{ page.catalog_id }}?');
+    document.querySelectorAll('a.whatsapp-button').forEach(function(btn) {
+        var base = btn.href.split('?')[0];
+        btn.href = base + '?text=' + msg;
+    });
+});
+
 function selectKatalogThumb(el) {
     var src = el.dataset.src || el.src;
     var type = el.dataset.type;

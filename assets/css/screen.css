@@ -1181,6 +1181,30 @@ iframe {
     margin: 2px 0 0;
 }
 
+/* Katalog Back Button */
+.katalog-back-btn {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.katalog-back-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
 /* Katalog Layout */
 .katalog-gallery-col {
     padding: 0;
@@ -1206,6 +1230,27 @@ iframe {
     align-items: center;
     padding: 0.5rem 0.5rem 0.25rem;
     min-height: 0;
+}
+
+@media (max-width: 767px) {
+    .sticky-gallery {
+        position: static;
+        height: auto;
+        overflow: visible;
+    }
+
+    .katalog-main-image {
+        height: 320px;
+        flex: none;
+        overflow: hidden;
+    }
+
+    .katalog-main-image img,
+    .katalog-main-image video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 .katalog-main-image img,
@@ -1245,12 +1290,27 @@ iframe {
 }
 
 .katalog-thumb--video {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     background: #111;
     color: #fff;
+}
+
+.katalog-thumb-canvas {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    display: block;
+}
+
+.katalog-thumb-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 1.6rem;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    pointer-events: none;
 }
 
 .not-found-wrap {

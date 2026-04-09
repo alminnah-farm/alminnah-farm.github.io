@@ -49,11 +49,15 @@ post_class: post-template
                     {% if first_ext == "mp4" or first_ext == "mov" or first_ext == "webm" %}{% assign first_is_video = true %}{% endif %}
 
                     <!-- Main Display -->
-                    <div class="katalog-main-image mb-2">
+                    <div class="katalog-main-image mb-2" style="position:relative;">
+                        <a href="javascript:history.back()" class="katalog-back-btn" aria-label="Kembali">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
                         <img id="katalog-main-img"
                              src="{% unless first_is_video %}{{ first_file.path }}{% endunless %}"
                              alt="{{ page.title }}"
-                             class="img-fluid{% if first_is_video %} d-none{% endif %}">
+                             class="img-fluid{% if first_is_video %} d-none{% endif %}"
+                             onerror="this.onerror=null;this.src='{{ site.baseurl }}/assets/images/posts/katalog/catalog-image-placeholder.png'">
                         <video id="katalog-main-video"
                                src="{% if first_is_video %}{{ first_file.path }}{% endif %}"
                                class="img-fluid{% unless first_is_video %} d-none{% endunless %}"
@@ -72,23 +76,31 @@ post_class: post-template
                              data-src="{{ file.path }}"
                              data-type="video"
                              onclick="selectKatalogThumb(this)">
-                            <i class="fa fa-play-circle"></i>
+                            <canvas class="katalog-thumb-canvas" width="72" height="72"></canvas>
+                            <i class="fa fa-play-circle katalog-thumb-play-icon"></i>
                         </div>
                         {% else %}
                         <img src="{{ file.path }}"
                              alt="{{ page.title }} {{ forloop.index }}"
                              data-type="image"
                              class="katalog-thumb {% if forloop.first %}active{% endif %}"
-                             onclick="selectKatalogThumb(this)">
+                             onclick="selectKatalogThumb(this)"
+                             onerror="this.onerror=null;this.src='{{ site.baseurl }}/assets/images/posts/katalog/catalog-image-placeholder.png'">
                         {% endif %}
                         {% endfor %}
                     </div>
                     {% endif %}
 
                 {% else %}
-                    {% assign fallback_img = page.image | default: "assets/images/posts/katalog/catalog-image-placeholder.png" %}
+                    {% assign placeholder_src = site.baseurl | append: "/assets/images/posts/katalog/catalog-image-placeholder.png" %}
+                    {% assign fallback_img = page.image | default: "" %}
+                    {% if fallback_img != "" %}
                     <img src="{% if fallback_img contains '://' %}{{ fallback_img }}{% else %}{{ site.baseurl }}/{{ fallback_img }}{% endif %}"
-                         alt="{{ page.title }}" class="img-fluid">
+                         alt="{{ page.title }}" class="img-fluid"
+                         onerror="this.onerror=null;this.src='{{ placeholder_src }}'">
+                    {% else %}
+                    <img src="{{ placeholder_src }}" alt="{{ page.title }}" class="img-fluid">
+                    {% endif %}
                 {% endif %}
 
             </div>
@@ -163,6 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a.whatsapp-button').forEach(function(btn) {
         var base = btn.href.split('?')[0];
         btn.href = base + '?text=' + msg;
+    });
+
+    // Capture first frame of each video thumbnail
+    document.querySelectorAll('.katalog-thumb--video').forEach(function(thumb) {
+        var canvas = thumb.querySelector('.katalog-thumb-canvas');
+        if (!canvas) return;
+        var video = document.createElement('video');
+        video.src = thumb.dataset.src;
+        video.crossOrigin = 'anonymous';
+        video.muted = true;
+        video.playsInline = true;
+        video.currentTime = 0.1;
+        video.addEventListener('seeked', function() {
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.src = '';
+        });
+        video.load();
     });
 });
 

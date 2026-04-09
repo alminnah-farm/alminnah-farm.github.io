@@ -1,0 +1,11 @@
+{
+  "name": "alminnah-farm",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "compress": "node compress-katalog.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.0"
+  }
+}

@@ -10,7 +10,7 @@
   {% endif %}
 {% endfor %}
 
-<div class="katalog-masonry-item">
+<div class="katalog-masonry-item" data-kelas="{{ post.kelas }}" data-berat="{{ post.berat }}" data-harga="{{ post.harga_list }}">
     <a href="{{ site.baseurl }}{{ post.url }}" class="katalog-masonry-card {% unless post.isAvailable %}katalog-masonry-card--sold{% endunless %}">
 
         <div class="katalog-masonry-card__image-wrap">

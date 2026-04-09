@@ -864,12 +864,12 @@ iframe {
     display: none;
 }
 
-.mb-30px {
-    margin-bottom: 30px;
+.post-box-item {
+    margin-bottom: 16px;
 }
 
 @media (max-width: 767px) {
-    .list-recent .mb-30px {
+    .list-recent .post-box-item {
         margin-bottom: 0;
     }
 }

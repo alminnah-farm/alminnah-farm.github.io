@@ -101,7 +101,9 @@ post_class: post-template
                 <p>
                     {% assign sortedCategories = page.categories | sort %}
                     {% for category in sortedCategories %}
-                    <span>{{ site.data.categories[category].name | default: category }}</span>
+                    {% if category == "katalog" %}{% assign cat_url = "/katalog" %}
+                    {% else %}{% assign cat_url = "/tulisan" %}{% endif %}
+                    <span><a href="{{ site.baseurl }}{{ cat_url }}">{{ site.data.categories[category].name | default: category }}</a></span>
                     {% endfor %}
                     <span class="post-date"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">• {{ page.date | date_to_string }}</time></span>
                 </p>

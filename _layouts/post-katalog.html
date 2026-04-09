@@ -11,16 +11,21 @@ post_class: post-template
         <div class="col-md-5 katalog-gallery-col">
             <div class="katalog-gallery sticky-gallery">
 
-                {% assign folder_path = "/assets/images/posts/catalog/" | append: page.catalog_id | append: "/" %}
-                {% assign catalog_images = site.static_files | where_exp: "file", "file.path contains folder_path" %}
+                {% assign folder_path = "/assets/images/posts/katalog/" | append: page.catalog_id | append: "/" %}
+                {% assign catalog_images = "" | split: "" %}
+                {% for file in site.static_files %}
+                  {% if file.path contains folder_path %}
+                    {% assign catalog_images = catalog_images | push: file %}
+                  {% endif %}
+                {% endfor %}
 
-                {% assign video_exts = "mp4,mov,webm" | split: "," %}
                 {% assign catalog_media = catalog_images %}
 
                 {% if catalog_media.size > 0 %}
                     {% assign first_file = catalog_media[0] %}
                     {% assign first_ext = first_file.extname | downcase | remove: "." %}
-                    {% assign first_is_video = video_exts | include: first_ext %}
+                    {% assign first_is_video = false %}
+                    {% if first_ext == "mp4" or first_ext == "mov" or first_ext == "webm" %}{% assign first_is_video = true %}{% endif %}
 
                     <!-- Main Display -->
                     <div class="katalog-main-image mb-2">
@@ -39,7 +44,8 @@ post_class: post-template
                     <div class="katalog-thumbnails d-flex flex-wrap gap-2">
                         {% for file in catalog_media %}
                         {% assign ext = file.extname | downcase | remove: "." %}
-                        {% assign is_video = video_exts | include: ext %}
+                        {% assign is_video = false %}
+                        {% if ext == "mp4" or ext == "mov" or ext == "webm" %}{% assign is_video = true %}{% endif %}
                         {% if is_video %}
                         <div class="katalog-thumb katalog-thumb--video {% if forloop.first %}active{% endif %}"
                              data-src="{{ file.path }}"
@@ -59,10 +65,9 @@ post_class: post-template
                     {% endif %}
 
                 {% else %}
-                    {% if page.image %}
-                    <img src="{% if page.image contains '://' %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}"
+                    {% assign fallback_img = page.image | default: "assets/images/posts/katalog/catalog-image-placeholder.png" %}
+                    <img src="{% if fallback_img contains '://' %}{{ fallback_img }}{% else %}{{ site.baseurl }}/{{ fallback_img }}{% endif %}"
                          alt="{{ page.title }}" class="img-fluid">
-                    {% endif %}
                 {% endif %}
 
             </div>
@@ -75,7 +80,7 @@ post_class: post-template
                 <p>
                     {% assign sortedCategories = page.categories | sort %}
                     {% for category in sortedCategories %}
-                    <span><a class="smoothscroll" href="{{ site.baseurl }}/kategori#{{ category | replace: ' ','-' }}">{{ site.data.categories[category].name }}</a></span>
+                    <span>{{ site.data.categories[category].name | default: category }}</span>
                     {% endfor %}
                     <span class="post-date"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">• {{ page.date | date_to_string }}</time></span>
                 </p>
@@ -98,12 +103,22 @@ post_class: post-template
             </div> -->
 
             <!-- Prev/Next -->
-            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
-                {% if page.previous.url %}
-                <a class="prev d-block col-md-6" href="{{ site.baseurl }}{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+            {% assign nav_posts = site.posts | where_exp: "post", "post.categories contains 'katalog'" %}
+            {% for post in nav_posts %}
+                {% if post.url == page.url %}{% assign nav_index = forloop.index0 %}{% endif %}
+            {% endfor %}
+            {% if nav_index > 0 %}
+                {% assign nav_next_i = nav_index | minus: 1 %}
+                {% assign nav_next = nav_posts[nav_next_i] %}
+            {% endif %}
+            {% assign nav_prev_i = nav_index | plus: 1 %}
+            {% if nav_prev_i < nav_posts.size %}{% assign nav_prev = nav_posts[nav_prev_i] %}{% endif %}
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold mt-5">
+                {% if nav_prev %}
+                <a class="prev d-block col-md-6" href="{{ site.baseurl }}{{ nav_prev.url }}">&laquo; {{ nav_prev.title }}</a>
                 {% endif %}
-                {% if page.next.url %}
-                <a class="next d-block col-md-6 text-lg-right{% unless page.previous.url %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+                {% if nav_next %}
+                <a class="next d-block col-md-6 text-lg-right{% unless nav_prev %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ nav_next.url }}">{{ nav_next.title }} &raquo;</a>
                 {% endif %}
                 <div class="clearfix"></div>
             </div>

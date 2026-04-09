@@ -29,8 +29,7 @@ post_class: post-template
 
                     {% assign sortedCategories = page.categories | sort %}
                     {% for category in sortedCategories %}
-                    <span><a class="smoothscroll" href="{{site.baseurl}}/kategori#{{ category | replace: " ","-" }}">{{ site.data.categories[category].name }}</a></span>
-                    
+                    <span>{{ site.data.categories[category].name | default: category }}</span>
                     {% endfor %}
 
                     <span class="post-date"><time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">• {{ page.date | date_to_string }}</time></span>
@@ -69,26 +68,25 @@ post_class: post-template
 
 
 
-            <!-- Post Categories -->
-            <div class="after-post-cats">
-                <ul class="categories mb-4">
-                    {% assign sortedCategories = page.categories | sort %}
-                    {% for category in sortedCategories %}
-                    <li>
-                        <a class="smoothscroll" href="{{site.baseurl}}/kategori#{{ category | replace: " ","-" }}">{{ category }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
             <!-- End Categories -->
 
             <!-- Prev/Next -->
-            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
-            {% if page.previous.url %}
-            <a class="prev d-block col-md-6" href="{{ site.baseurl }}/{{page.previous.url}}"> &laquo; {{page.previous.title}}</a>
+            {% assign nav_posts = site.posts | where_exp: "post", "post.categories contains 'cerita' or post.categories contains 'pojok-ilmu'" %}
+            {% for post in nav_posts %}
+                {% if post.url == page.url %}{% assign nav_index = forloop.index0 %}{% endif %}
+            {% endfor %}
+            {% if nav_index > 0 %}
+                {% assign nav_next_i = nav_index | minus: 1 %}
+                {% assign nav_next = nav_posts[nav_next_i] %}
             {% endif %}
-            {% if page.next.url %}
-            <a class="next d-block col-md-6 text-lg-right" href="{{ site.baseurl }}/{{page.next.url}}">{{page.next.title}} &raquo; </a>
+            {% assign nav_prev_i = nav_index | plus: 1 %}
+            {% if nav_prev_i < nav_posts.size %}{% assign nav_prev = nav_posts[nav_prev_i] %}{% endif %}
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            {% if nav_prev %}
+            <a class="prev d-block col-md-6" href="{{ site.baseurl }}{{ nav_prev.url }}">&laquo; {{ nav_prev.title }}</a>
+            {% endif %}
+            {% if nav_next %}
+            <a class="next d-block col-md-6 text-lg-right{% unless nav_prev %} ml-auto{% endunless %}" href="{{ site.baseurl }}{{ nav_next.url }}">{{ nav_next.title }} &raquo;</a>
             {% endif %}
             <div class="clearfix"></div>
             </div>

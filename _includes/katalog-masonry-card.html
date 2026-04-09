@@ -1,19 +1,34 @@
 <!-- begin katalog masonry card -->
-{% assign folder_path = "/assets/images/posts/catalog/" | append: post.catalog_id | append: "/" %}
-{% assign catalog_images = site.static_files | where_exp: "file", "file.path contains folder_path" %}
+{% assign folder_path = "/assets/images/posts/katalog/" | append: post.catalog_id | append: "/" %}
+{% assign catalog_images = "" | split: "" %}
+{% for file in site.static_files %}
+  {% if file.path contains folder_path %}
+    {% assign fext = file.extname | downcase %}
+    {% unless fext == ".mp4" or fext == ".mov" or fext == ".webm" %}
+      {% assign catalog_images = catalog_images | push: file %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
 
 <div class="katalog-masonry-item">
     <a href="{{ site.baseurl }}{{ post.url }}" class="katalog-masonry-card {% unless post.isAvailable %}katalog-masonry-card--sold{% endunless %}">
 
         <div class="katalog-masonry-card__image-wrap">
+            {% assign placeholder_src = site.baseurl | append: "/assets/images/posts/katalog/catalog-image-placeholder.png" %}
             {% if catalog_images.size > 0 %}
             <img class="katalog-masonry-card__image"
                  src="{{ catalog_images[0].path }}"
                  data-images="{{ catalog_images | map: 'path' | join: '|' }}"
-                 alt="{{ post.title }}">
+                 alt="{{ post.title }}"
+                 onerror="this.onerror=null;this.src='{{ placeholder_src }}'">
             {% elsif post.image %}
             <img class="katalog-masonry-card__image"
                  src="{{ site.baseurl }}/{{ post.image }}"
+                 alt="{{ post.title }}"
+                 onerror="this.onerror=null;this.src='{{ placeholder_src }}'">
+            {% else %}
+            <img class="katalog-masonry-card__image"
+                 src="{{ placeholder_src }}"
                  alt="{{ post.title }}">
             {% endif %}
 

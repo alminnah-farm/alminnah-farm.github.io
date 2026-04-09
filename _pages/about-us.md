@@ -13,7 +13,7 @@ tiktok_embed: true
         <p>Bagi kami, qurban dan aqiqah bukan sekadar tradisi, melainkan momen ibadah penuh makna! Itulah kenapa kami berkomitmen untuk memastikan setiap proses dijalankan dengan standar tertinggi: mulai dari pemeliharaan kambing, penyeleksian kelayakan untuk qurban dan aqiqah, hingga layanan pelanggan yang responsif.</p>
             
         <mark>Kami hadir untuk membantu kamu menemukan kambing dengan aman, kualitas terbaik, dan tanpa ribet!</mark>
-{% comment %} 
+        {% comment %} 
         <div class="row mt-4">
             <!-- static service cards: Qurban and Aqiqah -->
             {% include product-box.html title="Qurban" url="/qurban/" image="assets/images/qurban.jpg" excerpt="Layanan Qurban terpercaya — pesan kambing atau sapi untuk hari raya dengan mudah." %}

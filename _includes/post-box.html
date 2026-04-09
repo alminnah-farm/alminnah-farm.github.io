@@ -17,7 +17,8 @@
         <div class="card-body">
             <div class="post-box-meta">
                 <span class="post-box-date">{{ post.date | date: "%d %b %Y" }}</span>
-                <span class="post-box-category">{{ post.categories | first }}</span>
+                {% assign cat_slug = post.categories | first %}
+                <span class="post-box-category">{{ site.data.categories[cat_slug].name | default: cat_slug }}</span>
             </div>
             <h2 class="card-title">
                 <a class="text-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>

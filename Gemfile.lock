@@ -84,6 +84,7 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
+  jekyll (~> 4.3)
   jekyll-archives
   jekyll-feed
   jekyll-paginate

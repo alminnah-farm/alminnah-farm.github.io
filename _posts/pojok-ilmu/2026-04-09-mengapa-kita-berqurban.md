@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mengapa Kita Berqurban?"
+description: "Pahami makna dan hikmah qurban dalam Islam. Ibadah yang dilakukan tanpa pemahaman hanya akan menjadi rutinitas — artikel ini membahas mengapa kita berqurban, bukan sekadar tradisi."
 categories: [pojok-ilmu]
 image: assets/images/posts/pojok-ilmu/qurban.jpg
 featured: false

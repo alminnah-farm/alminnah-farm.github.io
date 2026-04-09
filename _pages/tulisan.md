@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Tulisan
+description: "Kumpulan tulisan dari Al-Minnah Farm seputar peternakan kambing, qurban, aqiqah, dan pengetahuan Islam yang bermanfaat."
 permalink: /tulisan
 ---
 

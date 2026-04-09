@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mengapa Al-Minnah Farm Memprioritaskan Pakan Alami"
+description: "Pilihan pakan di Al-Minnah Farm bukan soal efisiensi biaya, tapi soal prinsip. Pelajari mengapa kami memilih pakan alami untuk memastikan daging yang halal, thayyib, dan berkualitas tinggi."
 categories: [cerita]
 image: assets/images/posts/cerita/pakan-alami.png
 featured: false

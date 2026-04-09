@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Tentang Kami
+description: "Kenali Al-Minnah Farm, peternakan kambing untuk qurban dan aqiqah di Bekasi. Kami hadir dengan komitmen menyediakan hewan sehat, halal, dan berkualitas terbaik langsung dari kandang."
 permalink: /tentang-kami
 tiktok_embed: true
 ---

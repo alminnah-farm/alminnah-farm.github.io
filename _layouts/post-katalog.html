@@ -3,6 +3,27 @@ layout: default
 post_class: post-template
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ page.title }}",
+  "image": "{{ site.url }}/{{ page.image }}",
+  "description": "{{ page.breed }} {{ page.colour }} — {{ page.gender }}, berat {{ page.berat }}, tinggi {{ page.tinggi }}. Tersedia di Al-Minnah Farm untuk kebutuhan Qurban dan Aqiqah.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Al-Minnah Farm"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ page.harga_list | remove: 'Rp' | remove: '.' | strip }}",
+    "priceCurrency": "IDR",
+    "availability": "{% if page.isAvailable %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ site.url }}{{ page.url }}"
+  }
+}
+</script>
+
 <!-- Begin Katalog Article
 ================================================== -->
 <div class="row">

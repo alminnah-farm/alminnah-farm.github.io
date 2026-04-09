@@ -5,6 +5,10 @@ description: "Solusi peternakan kambing terpercaya untuk Qurban & Aqiqah Anda"
 logo: 'assets/images/logo/alminnah-farm.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
+url: 'https://alminnah.farm'
+lang: 'id'
+author:
+  name: "Al-Minnah Farm"
 google_analytics: 'UA-46278016-1'
 mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 include: ["_pages"]

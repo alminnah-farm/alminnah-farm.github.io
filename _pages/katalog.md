@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Katalog
+title: Katalog Qurban & Aqiqah
+description: "Jelajahi katalog kambing qurban dan aqiqah Al-Minnah Farm. Temukan pilihan kambing berkualitas dengan informasi lengkap berat, tinggi, dan harga yang transparan."
 permalink: /katalog
 ---
 

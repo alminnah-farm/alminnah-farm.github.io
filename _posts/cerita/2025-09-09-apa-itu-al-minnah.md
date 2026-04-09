@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Apa itu Al-Minnah"
+description: "Al-Minnah bermakna karunia yang datang semata karena kehendak Allah, bukan karena kepantasan si penerima. Di sinilah nama peternakan kami lahir — sebagai pengingat bahwa semua yang kami kelola adalah titipan."
 categories: [cerita]
 image: assets/images/posts/cerita/makna-al-minnah.jpg
 featured: false

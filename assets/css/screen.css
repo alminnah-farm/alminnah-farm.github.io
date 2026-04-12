@@ -1097,6 +1097,7 @@ iframe {
     .featured-posts .row > div:nth-child(-n+6) { display: block; }
     .featured-posts .row { margin-left: -6px; margin-right: -6px; }
     .featured-posts .row > div { padding-left: 6px; padding-right: 6px; }
+    .katalog-masonry-card__image-wrap--fixed { height: 288px; }
 }
 
 @media (min-width: 992px) {

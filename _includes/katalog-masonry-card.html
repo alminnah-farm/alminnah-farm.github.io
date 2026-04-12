@@ -1,4 +1,8 @@
 <!-- begin katalog masonry card -->
+{% assign placeholder_src = site.baseurl | append: "/assets/images/posts/katalog/catalog-image-placeholder.png" %}
+{% assign wrapper_class = include.wrapper_class | default: "katalog-masonry-item" %}
+
+{% unless include.use_thumbnail %}
 {% assign folder_path = "/assets/images/posts/katalog/" | append: post.catalog_id | append: "/" %}
 {% assign catalog_images = "" | split: "" %}
 {% for file in site.static_files %}
@@ -9,13 +13,22 @@
     {% endunless %}
   {% endif %}
 {% endfor %}
+{% endunless %}
 
-<div class="katalog-masonry-item" data-kelas="{{ post.kelas }}" data-berat="{{ post.berat }}" data-harga="{{ post.harga_list }}">
+<div class="{{ wrapper_class }}" data-kelas="{{ post.kelas }}" data-berat="{{ post.berat }}" data-harga="{{ post.harga_list }}">
     <a href="{{ site.baseurl }}{{ post.url }}" class="katalog-masonry-card {% unless post.isAvailable %}katalog-masonry-card--sold{% endunless %}">
 
-        <div class="katalog-masonry-card__image-wrap">
-            {% assign placeholder_src = site.baseurl | append: "/assets/images/posts/katalog/catalog-image-placeholder.png" %}
-            {% if catalog_images.size > 0 %}
+        <div class="katalog-masonry-card__image-wrap{% if include.fixed_height %} katalog-masonry-card__image-wrap--fixed{% endif %}">
+            {% if include.use_thumbnail %}
+                {% if post.image %}
+                <img class="katalog-masonry-card__image"
+                     src="{{ site.baseurl }}/{{ post.image }}"
+                     alt="{{ post.title }}"
+                     onerror="this.onerror=null;this.src='{{ placeholder_src }}'">
+                {% else %}
+                <img class="katalog-masonry-card__image" src="{{ placeholder_src }}" alt="{{ post.title }}">
+                {% endif %}
+            {% elsif catalog_images.size > 0 %}
             <img class="katalog-masonry-card__image"
                  src="{{ catalog_images[0].path }}"
                  data-images="{{ catalog_images | map: 'path' | join: '|' }}"
@@ -27,9 +40,7 @@
                  alt="{{ post.title }}"
                  onerror="this.onerror=null;this.src='{{ placeholder_src }}'">
             {% else %}
-            <img class="katalog-masonry-card__image"
-                 src="{{ placeholder_src }}"
-                 alt="{{ post.title }}">
+            <img class="katalog-masonry-card__image" src="{{ placeholder_src }}" alt="{{ post.title }}">
             {% endif %}
 
             {% unless post.isAvailable %}
@@ -41,7 +52,9 @@
 
         {% if post.isAvailable %}
         <div class="katalog-masonry-card__label">
-            <span class="katalog-masonry-card__title stylize">{{ post.breed | default: post.title }}</span>{% if post.colour %}<span class="katalog-masonry-card__subtitle"> · {{ post.colour }}</span>{% endif %}
+            <div class="katalog-masonry-card__info">{% if post.berat %}{{ post.berat }}{% endif %}{% if post.berat and post.tinggi %} · {% endif %}{% if post.tinggi %}{{ post.tinggi }}{% endif %}</div>
+            <div class="katalog-masonry-card__title stylize">{{ post.breed | default: post.title }}{% if post.colour %} · {{ post.colour }}{% endif %}</div>
+            {% if post.harga_list %}<div class="katalog-masonry-card__price">{{ post.harga_list }}</div>{% endif %}
         </div>
         {% endif %}
 

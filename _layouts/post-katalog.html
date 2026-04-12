@@ -57,11 +57,16 @@ post_class: post-template
                              src="{% unless first_is_video %}{{ first_file.path }}{% endunless %}"
                              alt="{{ page.title }}"
                              class="img-fluid{% if first_is_video %} d-none{% endif %}"
+                             onclick="openLightbox(0)"
+                             style="cursor:zoom-in"
                              onerror="this.onerror=null;this.src='{{ site.baseurl }}/assets/images/posts/katalog/catalog-image-placeholder.png'">
                         <video id="katalog-main-video"
                                src="{% if first_is_video %}{{ first_file.path }}{% endif %}"
                                class="img-fluid{% unless first_is_video %} d-none{% endunless %}"
                                controls playsinline></video>
+                        <button class="katalog-expand-btn" onclick="openLightbox(currentThumbIndex)" aria-label="Layar penuh">
+                            <i class="fa fa-expand"></i>
+                        </button>
                     </div>
 
                     <!-- Thumbnails -->
@@ -169,15 +174,41 @@ post_class: post-template
 <!-- End Katalog Article
 ================================================== -->
 
+<!-- Lightbox -->
+<div id="katalog-lightbox" class="katalog-lightbox" role="dialog" aria-modal="true" aria-label="Galeri layar penuh">
+    <button class="katalog-lb-close" onclick="closeLightbox()" aria-label="Tutup">&times;</button>
+    <button class="katalog-lb-prev" onclick="lightboxCycle(-1)" aria-label="Sebelumnya"><i class="fa fa-chevron-left"></i></button>
+    <div class="katalog-lb-media">
+        <img id="katalog-lb-img" src="" alt="{{ page.title }}">
+        <video id="katalog-lb-video" controls playsinline></video>
+    </div>
+    <button class="katalog-lb-next" onclick="lightboxCycle(1)" aria-label="Selanjutnya"><i class="fa fa-chevron-right"></i></button>
+    <div class="katalog-lb-counter" id="katalog-lb-counter"></div>
+</div>
+
 <script>
+// --- Media index ---
+var katalogMedia = [];   // [{src, type}]
+var currentThumbIndex = 0;
+var lbIndex = 0;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // WhatsApp message
     var msg = encodeURIComponent('Halo Al-Minnah Farm. Boleh tanya tentang kambing {{ page.catalog_id }}?');
     document.querySelectorAll('a.whatsapp-button').forEach(function(btn) {
         var base = btn.href.split('?')[0];
         btn.href = base + '?text=' + msg;
     });
 
-    // Capture first frame of each video thumbnail
+    // Build media list from thumbnails
+    document.querySelectorAll('.katalog-thumb').forEach(function(el) {
+        katalogMedia.push({
+            src: el.dataset.src || el.src,
+            type: el.dataset.type
+        });
+    });
+
+    // Video thumbnail: capture first frame
     document.querySelectorAll('.katalog-thumb--video').forEach(function(thumb) {
         var canvas = thumb.querySelector('.katalog-thumb-canvas');
         if (!canvas) return;
@@ -194,9 +225,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         video.load();
     });
+
+    // Keyboard: arrows + escape
+    document.addEventListener('keydown', function(e) {
+        var lb = document.getElementById('katalog-lightbox');
+        if (!lb.classList.contains('active')) return;
+        if (e.key === 'ArrowRight') lightboxCycle(1);
+        else if (e.key === 'ArrowLeft') lightboxCycle(-1);
+        else if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Close on backdrop click
+    document.getElementById('katalog-lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
 });
 
 function selectKatalogThumb(el) {
+    var thumbs = document.querySelectorAll('.katalog-thumb');
+    thumbs.forEach(function(t, i) { if (t === el) currentThumbIndex = i; });
+
     var src = el.dataset.src || el.src;
     var type = el.dataset.type;
     var mainImg = document.getElementById('katalog-main-img');
@@ -213,10 +261,56 @@ function selectKatalogThumb(el) {
         mainVideo.classList.add('d-none');
     }
 
-    document.querySelectorAll('.katalog-thumb').forEach(function(t) {
-        t.classList.remove('active');
-    });
+    thumbs.forEach(function(t) { t.classList.remove('active'); });
     el.classList.add('active');
 }
 
+// --- Lightbox ---
+function openLightbox(index) {
+    if (katalogMedia.length === 0) return;
+    lbIndex = index || currentThumbIndex || 0;
+    document.getElementById('katalog-lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderLightbox();
+}
+
+function closeLightbox() {
+    var lb = document.getElementById('katalog-lightbox');
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    var vid = document.getElementById('katalog-lb-video');
+    vid.pause();
+    vid.src = '';
+}
+
+function lightboxCycle(dir) {
+    if (katalogMedia.length <= 1) return;
+    lbIndex = (lbIndex + dir + katalogMedia.length) % katalogMedia.length;
+    renderLightbox();
+}
+
+function renderLightbox() {
+    var media  = katalogMedia[lbIndex];
+    var lbImg  = document.getElementById('katalog-lb-img');
+    var lbVid  = document.getElementById('katalog-lb-video');
+    var counter = document.getElementById('katalog-lb-counter');
+
+    var showPrevNext = katalogMedia.length > 1;
+    document.querySelector('.katalog-lb-prev').style.display = showPrevNext ? '' : 'none';
+    document.querySelector('.katalog-lb-next').style.display = showPrevNext ? '' : 'none';
+    counter.textContent = showPrevNext ? (lbIndex + 1) + ' / ' + katalogMedia.length : '';
+
+    if (media.type === 'video') {
+        lbImg.style.display = 'none';
+        lbVid.style.display = '';
+        lbVid.src = media.src;
+        lbVid.load();
+    } else {
+        lbVid.pause();
+        lbVid.src = '';
+        lbVid.style.display = 'none';
+        lbImg.style.display = '';
+        lbImg.src = media.src;
+    }
+}
 </script>

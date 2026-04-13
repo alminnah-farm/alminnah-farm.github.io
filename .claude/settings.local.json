@@ -3,7 +3,8 @@
     "allow": [
       "Bash(cd /tmp)",
       "Bash(node -e \":*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(node compress-katalog.js)"
     ]
   }
 }

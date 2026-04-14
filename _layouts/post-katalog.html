@@ -53,6 +53,11 @@ post_class: post-template
                         <a href="javascript:history.back()" class="katalog-back-btn" aria-label="Kembali">
                             <i class="fa fa-arrow-left"></i>
                         </a>
+                        {% unless page.isAvailable %}
+                        <div class="katalog-masonry-card__sold-overlay">
+                            <span class="katalog-masonry-card__sold-stamp stylize">Sudah Terjual</span>
+                        </div>
+                        {% endunless %}
                         <img id="katalog-main-img"
                              src="{% unless first_is_video %}{{ first_file.path }}{% endunless %}"
                              alt="{{ page.title }}"
@@ -193,12 +198,22 @@ var currentThumbIndex = 0;
 var lbIndex = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
+    {% if page.isAvailable %}
     // WhatsApp message
     var msg = encodeURIComponent('Halo Al-Minnah Farm. Boleh tanya tentang kambing {{ page.catalog_id }}?');
     document.querySelectorAll('a.whatsapp-button').forEach(function(btn) {
         var base = btn.href.split('?')[0];
         btn.href = base + '?text=' + msg;
     });
+    {% else %}
+    // Sold out: disable WA button in post content only
+    document.querySelectorAll('.contact-whatsapp a.whatsapp-button').forEach(function(btn) {
+        btn.removeAttribute('href');
+        btn.removeAttribute('target');
+        btn.innerHTML = 'Sudah Terjual';
+        btn.classList.add('whatsapp-button--sold');
+    });
+    {% endif %}
 
     // Build media list from thumbnails
     document.querySelectorAll('.katalog-thumb').forEach(function(el) {

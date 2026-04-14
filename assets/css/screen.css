@@ -190,6 +190,15 @@ pre {
     text-decoration: none;
 }
 
+.whatsapp-button--sold {
+    border: 1px solid #ccc;
+    color: #999;
+    background-color: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 .whatsapp-button--fill {
     background-color: #25D366;
     border: 1px solid #ffffff;
@@ -1078,6 +1087,10 @@ iframe {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.katalog-main-image .katalog-masonry-card__sold-overlay {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .katalog-masonry-card__sold-stamp {

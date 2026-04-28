@@ -14,12 +14,46 @@ description: "Beli kambing qurban dan aqiqah terpercaya langsung dari peternakan
         {{ site.description }}
     </p>
  
-    <div class="contact">
-        <a class="whatsapp-button whatsapp-button--outlined" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
-            <i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i> Hubungi Kami via WhatsApp
+    <div class="contact" style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a class="whatsapp-button whatsapp-button--fill" href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i>Konsultasi
         </a>
+        <button class="whatsapp-button whatsapp-button--outlined" onclick="openMapModal()" aria-label="Kunjungi lokasi">
+            <i class="fa fa-map-marker-alt" aria-hidden="true"></i>Kunjungi
+        </button>
     </div>
 </div>
+
+<!-- Map Modal -->
+<div id="map-modal" class="map-modal" role="dialog" aria-modal="true" aria-label="Lokasi Al-Minnah Farm">
+    <div class="map-modal__backdrop" onclick="closeMapModal()"></div>
+    <div class="map-modal__content">
+        <div class="map-modal__header">
+            <h3 class="map-modal__title stylize">Lokasi Kandang</h3>
+            <button class="map-modal__close" onclick="closeMapModal()" aria-label="Tutup">&times;</button>
+        </div>
+        <div class="map-modal__embed">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4!2d106.9614694!3d-6.2814421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d8e7985ef53%3A0x366ba9a27d37b09c!2sAl-Minnah%20Farm%20-%20Peternakan%20Kambing!5e0!3m2!1sid!2sid!4v1"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+function openMapModal() {
+    document.getElementById('map-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeMapModal() {
+    document.getElementById('map-modal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMapModal();
+});
+</script>
 
 <!-- Featured
 ================================================== -->

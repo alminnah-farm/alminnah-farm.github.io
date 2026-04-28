@@ -190,6 +190,83 @@ pre {
     text-decoration: none;
 }
 
+/* Map Modal — bottom panel (all breakpoints) */
+.map-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    align-items: flex-end;
+    justify-content: center;
+}
+.map-modal.active { display: flex; }
+
+.map-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.map-modal.active .map-modal__backdrop {
+    opacity: 1;
+}
+
+.map-modal__content {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 75vh;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 1s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.map-modal.active .map-modal__content {
+    transform: translateY(0);
+}
+
+.map-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.map-modal__title {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.map-modal__close {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+}
+.map-modal__close:hover { color: #111; }
+
+.map-modal__embed {
+    flex: 1;
+    min-height: 0;
+}
+.map-modal__embed iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .map-modal__content { height: 480px; }
+}
+
 .whatsapp-button--sold {
     border: 1px solid #ccc;
     color: #999;

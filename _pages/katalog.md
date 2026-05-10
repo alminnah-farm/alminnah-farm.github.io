@@ -6,8 +6,13 @@ permalink: /katalog
 ---
 
 <section class="katalog-page">
-    <div class="section-title">
-        <h2><span>Katalog Qurban</span></h2>
+    <div class="katalog-page-header">
+        <h2 class="katalog-page-title"><span>Katalog Qurban</span></h2>
+        <label class="katalog-toggle">
+            <input type="checkbox" id="hideSoldToggle">
+            <span class="katalog-toggle__track"></span>
+            <span class="katalog-toggle__label">Sembunyikan Terjual</span>
+        </label>
     </div>
 
     <div class="katalog-filter-row">
@@ -23,7 +28,7 @@ permalink: /katalog
     <div class="katalog-masonry">
         {% for post in site.posts %}
             {% if post.categories contains 'katalog' %}
-                {% include katalog-masonry-card.html %}
+                {% include katalog-masonry-card.html use_thumbnail=true %}
             {% endif %}
         {% endfor %}
     </div>
@@ -84,12 +89,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var allItems = Array.from(items);
     var masonry = document.querySelector('.katalog-masonry');
+    var hideSoldToggle = document.getElementById('hideSoldToggle');
+
+    function activeFilter() {
+        var activeTab = document.querySelector('.katalog-filter-tab.active');
+        return activeTab ? activeTab.dataset.filter : 'all';
+    }
 
     function applyFilter(filter) {
+        var hideSold = hideSoldToggle.checked;
         allItems.forEach(function (item) { item.remove(); });
         var visible = [];
         allItems.forEach(function (item) {
-            if (filter === 'all' || item.dataset.kelas === filter) {
+            var matchesKelas = filter === 'all' || item.dataset.kelas === filter;
+            var matchesAvail = !hideSold || item.dataset.available === 'true';
+            if (matchesKelas && matchesAvail) {
                 masonry.appendChild(item);
                 visible.push(item);
             }
@@ -105,6 +119,10 @@ document.addEventListener('DOMContentLoaded', function () {
             history.replaceState(null, '', filter === 'all' ? window.location.pathname : '#' + filter);
             applyFilter(filter);
         });
+    });
+
+    hideSoldToggle.addEventListener('change', function () {
+        applyFilter(activeFilter());
     });
 
     // Init from URL hash

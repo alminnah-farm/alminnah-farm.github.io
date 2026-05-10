@@ -1042,8 +1042,78 @@ iframe {
     flex-wrap: wrap;
 }
 
+.katalog-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    margin-top: 1rem;
+    margin-bottom: 24px;
+}
+
+.katalog-page-title {
+    border-bottom: none;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.katalog-page-title span {
+    border-bottom: 1px solid rgba(0, 0, 0, .44);
+    display: inline-block;
+    padding-bottom: 20px;
+    margin-bottom: -1px;
+}
+
 .katalog-filter-info {
     font-size: 0.875rem;
+}
+
+/* Toggle switch */
+.katalog-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.katalog-toggle input {
+    display: none;
+}
+
+.katalog-toggle__track {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: #ccc;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.katalog-toggle__track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+}
+
+.katalog-toggle input:checked + .katalog-toggle__track {
+    background: #00ab6b;
+}
+
+.katalog-toggle input:checked + .katalog-toggle__track::after {
+    transform: translateX(16px);
+}
+
+.katalog-toggle__label {
+    font-size: 0.8125rem;
+    color: #666;
 }
 
 .katalog-filter-info .fi-label {

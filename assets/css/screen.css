@@ -1064,6 +1064,18 @@ iframe {
     margin-bottom: -1px;
 }
 
+.katalog-year-section {
+    margin-top: 2.5rem;
+}
+
+.katalog-page-header--secondary {
+    opacity: 0.55;
+}
+
+.katalog-page-title--secondary {
+    font-size: 1.5rem;
+}
+
 .katalog-filter-info {
     font-size: 0.875rem;
 }
